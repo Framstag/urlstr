@@ -1,0 +1,57 @@
+{
+  "articles": [
+    {
+      "name": "Q&A on the Book Learning to Scale",
+      "url": "https://quarkus.io/",
+      "tags": [
+        "it",
+        "microservice",
+        "quarkus"
+      ]
+    },
+    {
+      "name": "Quarkus Homepage",
+      "url": "https://www.infoq.com/articles/book-review-learning-to-scale/",
+      "tags": [
+        "it",
+        "lean",
+        "agile",
+        "management"
+      ]
+    },
+    {
+      "name": "Schmecksplosion",
+      "url": "https://schmecksplosion.de",
+      "tags": [
+        "kinder",
+        "kochen"
+      ]
+    },
+    {
+      "name": "Remote-optimised Domain Modelling: The Present and Future",
+      "url": "https://medium.com/nick-tune-tech-strategy-blog/remote-optimised-domain-modelling-the-present-and-future-7d5e7d68c790",
+      "tags": [
+        "it",
+        "eventsourcing",
+        "modelling"
+      ]
+    },
+    {
+      "name": "Cynefin and Sense-Making in the Digital World",
+      "url": "https://www.infoq.com/presentations/cynefin-devops/",
+      "tags": [
+        "it",
+        "cynefin"
+      ]
+    },
+    {
+      "name": "What’s the right size for a Microservice?",
+      "url": "https://medium.com/@kylegenebrown/whats-the-right-size-for-a-microservice-bf1740370d47",
+      "tags": [
+        "it",
+        "architecture",
+        "microservice"
+      ]
+    }
+  ]
+}
