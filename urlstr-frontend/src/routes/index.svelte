@@ -1,6 +1,5 @@
 <script>
   import Card, {Content, PrimaryAction, Media, MediaContent, Actions, ActionButtons, ActionIcons} from '@smui/card';
-  import DataTable, {Head, Body, Row, Cell} from '@smui/data-table';
 
   import Search from "../components/Search.svelte";
 
@@ -27,18 +26,16 @@
   <title>Search</title>
 </svelte:head>
 
-<div>
-  <Search tags={tags}/>
-</div>
+<Search style="width=500px"tags={tags}/>
 
 <div class="card-deck">
   {#await fetchArticles()}
     <div>Loading articles...</div>
   {:then articles}
     {#each articles as article}
-    <Card style="width: 320px;">
-      <Content>{article.name}</Content>      
-    </Card>
+      <Card class="card">
+        <Content><a href="{article.url}">{article.name}</a></Content>      
+      </Card>
     {/each}
   {:catch error}
     <div class="error">Error loading articles: {error.message}</div>
@@ -47,16 +44,17 @@
 
 <style>
   .card-deck {
-    /*display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 500px;
-    min-width: 380px;
-    background-color: #f8f8f8;
-    margin-right: 20px;
-    margin-bottom: 20px;*/
     display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: stretch;
+    background-color: #f8f8f8;
+  }
+
+  * :global(.card) {
+    width: 200px;
+  	height: 200px;
+	  margin: 10px;
+	  flex-grow: 1;
   }
 </style>
