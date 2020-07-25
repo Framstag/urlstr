@@ -5,7 +5,6 @@
   import Textfield from '@smui/textfield';
   import Icon from '@smui/textfield/icon/index';
 
-  import Search from "../components/Search.svelte";
   import TagChooser from "../components/TagChooser.svelte"
 
   let searchText = "";
