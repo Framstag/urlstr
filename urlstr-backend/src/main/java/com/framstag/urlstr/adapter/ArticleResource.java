@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/article")
 @Produces(MediaType.APPLICATION_JSON)
@@ -34,11 +35,12 @@ public class ArticleResource {
   }
 
   @GET
-  @Path("/start")
-  public List<Article> getArticlesFromStartPage() {
-    log.info("Get articles for start page...");
+  @Path("/search")
+  public List<Article> searchArticles(@QueryParam("tags") List<String> searchTags,
+                                      @QueryParam("search") String search) {
+    log.info("Search articles by tags {} and search '{}'...", searchTags, search);
 
-    return repository.getArticlesForStartPage(15);
+    return repository.searchArticles(searchTags, search, 15);
   }
 
   @POST
