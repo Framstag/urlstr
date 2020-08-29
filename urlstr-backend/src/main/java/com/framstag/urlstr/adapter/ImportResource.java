@@ -1,6 +1,5 @@
 package com.framstag.urlstr.adapter;
 
-import com.framstag.urlstr.domain.Article;
 import com.framstag.urlstr.domain.Import;
 import com.framstag.urlstr.domain.ArticleData;
 import com.framstag.urlstr.domain.Tag;
@@ -48,20 +47,20 @@ public class ImportResource {
 
     log.info("Creating/merging tags...");
 
-    for (String tagName : tagNames) {
-      log.info("Creating/merging tag '{}'...", tagName);
-      Tag tag = tagRepository.createOrMergeTag(tagName);
+    tagNames.forEach((name) -> {
+      log.info("Creating/merging tag '{}'...", name);
+      Tag tag = tagRepository.createOrMergeTag(name);
 
       tagMap.put(tag.getName(), tag);
-    }
+    });
 
     log.info("Creating articles...");
 
-    for (ArticleData articleData : importData.getArticles()) {
-      log.info("Creating/merging article '{}'...", articleData.getUrl());
+    importData.getArticles().forEach((data) -> {
+      log.info("Creating/merging article '{}'...", data.getUrl());
 
-      Article article = articleRepository.createOrMergeArticle(articleData,tagMap);
-    }
+      articleRepository.createOrMergeArticle(data,tagMap);
+    });
 
     return Response.ok().build();
   }
