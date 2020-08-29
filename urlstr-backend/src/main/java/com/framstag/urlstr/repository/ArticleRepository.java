@@ -104,7 +104,7 @@ public class ArticleRepository {
   }
 
   public List<Article> searchArticles(List<String> searchTags, String search, long limit) {
-    log.info("Get articles for start page...");
+    log.info("Search for articles...");
 
     List<Article> result = new LinkedList<>();
 
@@ -114,23 +114,23 @@ public class ArticleRepository {
       // https://stackoverflow.com/questions/21092163/neo4j-cypher-how-to-find-all-nodes-that-have-a-relationship-to-list-of-nodes
       
       if (searchTags != null && !searchTags.isEmpty() && search != null && !search.isEmpty()) {
-        queryResult = session.run("MATCH (a:Article)-[r:TAG]->(t:Tag) WHERE a.name CONTAINS $search OR t.name CONTAINS $search WITH a, collect(t.name) as tagNames WHERE ALL(n IN $searchTags WHERE n IN tagNames) RETURN DISTINCT(a) ORDER BY a.createdAt DESC LIMIT $limit",
+        queryResult = session.run("MATCH (a:Article)-[r:TAG]->(t:Tag) WHERE a.name CONTAINS $search OR t.name CONTAINS $search WITH a, collect(t.name) as tagNames WHERE ALL(n IN $searchTags WHERE n IN tagNames) RETURN DISTINCT(a) ORDER BY a.name ASC LIMIT $limit",
           parameters("searchTags", searchTags,
             "search",search,
             "limit", limit));
       }
       else if (searchTags != null && !searchTags.isEmpty()) {
-        queryResult = session.run("MATCH (a:Article)-[r:TAG]->(t:Tag) WITH a, collect(t.name) as tagNames WHERE ALL(n IN $searchTags WHERE n IN tagNames) RETURN a ORDER BY a.createdAt DESC LIMIT $limit",
+        queryResult = session.run("MATCH (a:Article)-[r:TAG]->(t:Tag) WITH a, collect(t.name) as tagNames WHERE ALL(n IN $searchTags WHERE n IN tagNames) RETURN a ORDER BY a.name ASC LIMIT $limit",
           parameters("searchTags", searchTags,
             "limit", limit));
       }
       else if (search != null && !search.isEmpty()) {
-        queryResult = session.run("MATCH (a:Article)-[r:TAG]->(t:Tag) WHERE a.name CONTAINS $search OR t.name CONTAINS $search RETURN DISTINCT(a) ORDER BY a.createdAt DESC LIMIT $limit",
+        queryResult = session.run("MATCH (a:Article)-[r:TAG]->(t:Tag) WHERE a.name CONTAINS $search OR t.name CONTAINS $search RETURN DISTINCT(a) ORDER BY a.name ASC LIMIT $limit",
           parameters("search", search,
             "limit", limit));
       }
       else {
-        queryResult = session.run("MATCH (a:Article) RETURN a ORDER BY a.createdAt DESC LIMIT $limit",
+        queryResult = session.run("MATCH (a:Article) RETURN a ORDER BY a.name ASC LIMIT $limit",
           parameters("limit", limit));
       }
 

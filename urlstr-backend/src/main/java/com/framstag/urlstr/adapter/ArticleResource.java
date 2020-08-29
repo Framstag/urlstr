@@ -1,6 +1,7 @@
 package com.framstag.urlstr.adapter;
 
 import com.framstag.urlstr.domain.Article;
+import com.framstag.urlstr.domain.ArticleData;
 import com.framstag.urlstr.repository.ArticleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,19 +29,23 @@ public class ArticleResource {
   UriInfo uriInfo;
 
   @GET
-  public List<Article> getArticles() {
+  public List<ArticleData> getArticles() {
     log.info("Get articles...");
 
-    return repository.getArticles();
+    List<Article> articles = repository.getArticles();
+
+    return articles.stream().map(ArticleData::fromArticle).collect(Collectors.toList());
   }
 
   @GET
   @Path("/search")
-  public List<Article> searchArticles(@QueryParam("tags") List<String> searchTags,
+  public List<ArticleData> searchArticles(@QueryParam("tags") List<String> searchTags,
                                       @QueryParam("search") String search) {
     log.info("Search articles by tags {} and search '{}'...", searchTags, search);
 
-    return repository.searchArticles(searchTags, search, 15);
+    List<Article> articles = repository.searchArticles(searchTags, search, 15);
+
+    return articles.stream().map(ArticleData::fromArticle).collect(Collectors.toList());
   }
 
   @POST
@@ -49,8 +54,10 @@ public class ArticleResource {
 
     article = repository.addArticle(article);
 
-    URI uri = uriInfo.getAbsolutePathBuilder().path(article.getId().asString()).build();
+    var data = ArticleData.fromArticle(article);
 
-    return Response.created(uri).entity(article).build();
+    URI uri = uriInfo.getAbsolutePathBuilder().path(data.getId()).build();
+
+    return Response.created(uri).entity(data).build();
   }
 }
