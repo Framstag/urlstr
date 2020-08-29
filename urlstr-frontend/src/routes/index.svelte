@@ -1,17 +1,25 @@
 <script>
   import _ from 'lodash';
+  import {onMount} from 'svelte';
 
   import Card, {Content, PrimaryAction, Media, MediaContent, Actions, ActionButtons, ActionIcons} from '@smui/card';
   import Textfield from '@smui/textfield';
   import Icon from '@smui/textfield/icon/index';
 
+  import ArticleCard from "../components/ArticleCard.svelte"
   import TagChooser from "../components/TagChooser.svelte"
 
   let searchText = "";
   let selectedTags=[];
 
-  let articlePromise = fetchArticles(searchText,selectedTags);
+  let tagPromise = Promise.resolve([]);
+  let articlePromise = Promise.resolve([]);
   let lastLoadedTags = null;
+
+  onMount(async() => {
+    tagPromise=fetchTags();
+    articlePromise=fetchArticles(searchText,selectedTags);
+  });
 
   $: reloadOnTagsChange(selectedTags);
 
@@ -41,16 +49,15 @@
         }
     });
 
-    if (!res.ok) {
-        throw new Error(await res.text());
+    if (res.ok && res.status==200) {
+      return res.json();
     }
 
-    return await res.json();
+    throw new Error(await res.text());
   }
 
   async function fetchTags() {
     var url = new URL('http://localhost:8080/tag/start')
-
 
     const res = await fetch(url, {
         method: 'GET',
@@ -60,11 +67,11 @@
         }
     });
 
-    if (!res.ok) {
-        throw new Error(await res.text());
+    if (res.ok && res.status==200) {
+      return res.json();
     }
 
-    return await res.json();
+    throw new Error(await res.text());
   }
 
   function reloadOnSearchTextChange() {
@@ -101,7 +108,7 @@
     <Icon class="material-icons" trailing>search</Icon>
 </Textfield>
 
-{#await fetchTags()}
+{#await tagPromise}
   <div>Loading tags...</div>
 {:then tags}
   <TagChooser
@@ -111,14 +118,12 @@
   <div class="error">Error loading tags: {error.message}</div>
 {/await}
 
-<div class="card-deck">
+<div class="card-container">
   {#await articlePromise}
     <div>Loading articles...</div>
   {:then articles}
     {#each articles as article}
-      <Card class="card">
-        <Content><a href="{article.url}">{article.name}</a></Content>      
-      </Card>
+      <ArticleCard {article} />
     {/each}
   {:catch error}
     <div class="error">Error loading articles: {error.message}</div>
@@ -126,18 +131,12 @@
 </div>
 
 <style>
-  .card-deck {
+  .card-container {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
     align-items: stretch;
     background-color: #f8f8f8;
-  }
-
-  * :global(.card) {
-    width: 200px;
-  	height: 200px;
-	  margin: 10px;
-	  flex-grow: 1;
+    width: 840px;
   }
 </style>
