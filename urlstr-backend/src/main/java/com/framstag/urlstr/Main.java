@@ -3,6 +3,7 @@ package com.framstag.urlstr;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
+import org.neo4j.configuration.GraphDatabaseSettings;
 import org.neo4j.configuration.connectors.BoltConnector;
 import org.neo4j.configuration.helpers.SocketAddress;
 import org.neo4j.dbms.api.DatabaseManagementService;
@@ -28,12 +29,20 @@ public class Main {
   private static DatabaseManagementService dbManagementService;
 
   private static void startNeo4J() {
+    log.info("Starting NEO4J database...");
     File dbDirectory = new File(DB_DIRECTORY);
     dbManagementService = new DatabaseManagementServiceBuilder(dbDirectory)
+      //.setConfig(GraphDatabaseSettings.xxx,true)
       .setConfig(BoltConnector.enabled, true)
       .setConfig(BoltConnector.listen_address, new SocketAddress("localhost", 7687))
       .build();
     GraphDatabaseService db = dbManagementService.database(DEFAULT_DATABASE_NAME);
+    log.info("Waiting for the database starting...");
+    while (!db.isAvailable(100)) {
+      log.info("Waiting ...");
+    }
+    log.info("Waiting for the database starting...done");
+    log.info("Starting NEO4J database...done");
   }
 
   private static void stopNeo4J() {
