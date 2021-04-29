@@ -27,6 +27,24 @@ public class ArticleRepository {
   @Inject
   Driver driver;
 
+  public Article getArticle(String id) {
+    try (Session session = driver.session()) {
+      Result result = session.run("MATCH (a: Article) WHERE a.id=$id RETURN a",
+        parameters("id", id));
+
+      Record record = result.single();
+
+      Node node = record.get("a").asNode();
+      Article article = Article.fromNode(node);
+
+      // TODO: Load tags
+
+      log.info("Read article with id {}", article.getId().asString());
+
+      return article;
+    }
+  }
+
   public Article addArticle(Article article) {
     log.info("Adding article...");
 
@@ -64,6 +82,7 @@ public class ArticleRepository {
       Node node = record.get("a").asNode();
       Article article = Article.fromNode(node);
 
+      // Link article to the given tags
       for (String tagName : articleData.getTags()) {
         Tag tag = tagMap.get(tagName);
 

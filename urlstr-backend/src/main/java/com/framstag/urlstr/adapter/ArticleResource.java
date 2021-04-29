@@ -29,6 +29,16 @@ public class ArticleResource {
   UriInfo uriInfo;
 
   @GET
+  @Path("/{id}")
+  public ArticleData getArticle(@PathParam("id") String id) {
+    log.info("Loading article with id {}...", id);
+
+    Article article = repository.getArticle(id);
+
+    return ArticleData.fromArticle(article);
+  }
+
+  @GET
   public List<ArticleData> getArticles() {
     log.info("Get articles...");
 
