@@ -5,25 +5,29 @@
 URLStr is short for URLStore and is a little bookmark management
 application using an embedded Neo4J database in the background for
 rich data management, Quarkus using Java as backend framework, and
-Svelte for the frontend.
+Angular for the frontend.
 
 URLStr was created because of my need to manage, tag, comment and
 query my huge list (bookmarks) of online resources (articles,
 videos...).
 
 Another need was to have my bookmarks stored in a local application
-that runs in my home network. In fact it should run on a simple home server or NAS as a simple docker container - easy to setup, manage and update.
+that runs in my home network. In fact it should run on a simple home
+server or NAS as a simple docker container - easy to setup, manage and update.
 
-The most import and final need was to experiment with (for me) new technology, in this case above mentioned and more. It was also started
-to study using [DDD](https://en.wikipedia.org/wiki/Domain-driven_design) principles using Quarkus.
+The most import and final need was to experiment with (for me) new technology,
+in this case above mentioned and more. It was also started
+to study using [DDD](https://en.wikipedia.org/wiki/Domain-driven_design)
+principles using Quarkus.
 
 Currently used technologies.
 
 * [Quarkus](https://quarkus.io)
 * [Neo4J](https://neo4j.com)
-* [Svelte](https://svelte.dev)
-* [Sapper](https://sapper.svelte.dev/)
-* [Svelte Material UI](https://sveltematerialui.com/)
+* [Angular](https://angular.io)
+* [Angular Material UI](https://material.angular.io/)
+
+Older versions used Svelte/Swagger but I recently switched to Angular.
 
 ## Status
 
@@ -81,26 +85,25 @@ should show the imported data.
 
 ### Frontend
 
-The frontend is a Svelte/Sapper application based on the default
-template with the default router and some changes to make use of
-Svelte Material UI under Rollup.
+The frontend is a standard Angular with Angular Material application.
 
 In development mode, use
 
 ```bash
-  > npm run dev
+  > ng serve
 ```
 
-to start a small web server at localhost:3000 that serves the frontend.
+to start a small web server at localhost:4200 that serves the frontend.
 
-Currently URLs for the backend are hardcoded.
+Currently URLs for the backend are hardcoded, just starting frontend and
+backend in development mode should result in a working application.
 
 ## Build for release
 
 There is currently no working code or profile settings for this. It is
-planed to use the Backend also as static web server for the Svelte
-frontend and wire everything via environment variables referenced in
-the various (not yet existing) production profiles.
+planed to use the backend also as static web server for the
+frontend and wire everything via environment variables
+referenced in the various (not yet existing) production profiles.
 
 This should allow to copy everything into one docker container with
 the java backend running as the only process.
