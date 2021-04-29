@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "urlstr-frontend2": {
+    "urlstr-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/urlstr-frontend2",
+            "outputPath": "dist/urlstr-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "urlstr-frontend2:build"
+            "browserTarget": "urlstr-frontend:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "urlstr-frontend2:build:production"
+              "browserTarget": "urlstr-frontend:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "urlstr-frontend2:build"
+            "browserTarget": "urlstr-frontend:build"
           }
         },
         "test": {
@@ -99,15 +99,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
             ]
           }
         },
@@ -115,16 +111,19 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "urlstr-frontend2:serve"
+            "devServerTarget": "urlstr-frontend:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "urlstr-frontend2:serve:production"
+              "devServerTarget": "urlstr-frontend:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "urlstr-frontend2"
+  "defaultProject": "urlstr-frontend",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
