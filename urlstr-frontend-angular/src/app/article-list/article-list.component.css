@@ -1,0 +1,8 @@
+.card-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  background-color: #f8f8f8;
+  width: 840px;
+}

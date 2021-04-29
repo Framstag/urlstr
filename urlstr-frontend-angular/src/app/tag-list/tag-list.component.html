@@ -1,0 +1,18 @@
+<table style="width:100%">
+  <caption>Tags</caption>
+  <tr>
+    <th>Name</th>
+    <th>Count</th>
+  </tr>
+  <tr *ngFor="let tag of tags">
+    <td>{{tag.name}}</td>
+    <td>{{tag.useCount}}</td>
+  </tr>
+</table>
+
+<div *ngIf="!tags">
+  <div>Loading...</div>
+</div>
+
+<p *ngIf="tags && !tags.length">No tags yet!</p>
+

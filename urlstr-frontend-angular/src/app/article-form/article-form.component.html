@@ -1,0 +1,28 @@
+<div *ngIf="article">
+  <h1>{{article.name}}</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submitForm(form.value)">
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Id</mat-label>
+        <input matInput formControlName="id" placeholder="Id" required>
+        <mat-error *ngIf="form.controls.id.touched && form.controls.id.invalid">
+          <span *ngIf="form.controls.id.errors?.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+    </p>
+
+    <p>
+      <mat-form-field appearance="standard">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="Name" required>
+        <mat-error *ngIf="form.controls.name.touched && form.controls.name.invalid">
+          <span *ngIf="form.controls.name.errors?.required">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+    </p>
+
+    <button mat-raised-button routerLink="..">Back</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+  </form>
+</div>

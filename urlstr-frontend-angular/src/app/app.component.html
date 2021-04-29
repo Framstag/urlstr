@@ -1,0 +1,40 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <h1>URLStr</h1>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a mat-list-item
+         routerLink="/articles"
+         routerLinkActive="list-item-active"
+         (click)="sidenav.close()">
+         <mat-icon matListIcon>search</mat-icon>
+         Articles
+      </a>
+
+      <a mat-list-item routerLink="/tags"
+         routerLinkActive="list-item-active"
+         (click)="sidenav.close()">
+        <mat-icon matListIcon>label</mat-icon>
+        Tags
+      </a>
+
+      <a mat-list-item routerLink="/about"
+         routerLinkActive="list-item-active"
+         (click)="sidenav.close()">
+        <mat-icon matListIcon>info</mat-icon>
+        About
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div id="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

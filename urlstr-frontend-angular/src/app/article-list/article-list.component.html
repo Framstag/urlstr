@@ -1,0 +1,6 @@
+<div class="card-container">
+  <us-article-list-item *ngFor="let article of articles" [article]="article">
+  </us-article-list-item>
+
+  <p *ngIf="articles && !articles.length">No articles yet!</p>
+</div>

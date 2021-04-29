@@ -1,0 +1,13 @@
+<ng-container *ngIf="article$ | async as article; else loading">
+  <us-article-form [article]="article" [editing]="true"
+                   (submitArticle)="updateArticle($event)"></us-article-form>
+</ng-container>
+
+<ng-template #loading>
+  <div>
+    <div>Loading...</div>
+  </div>
+</ng-template>
+
+
+

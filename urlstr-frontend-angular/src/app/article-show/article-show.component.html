@@ -1,0 +1,23 @@
+<div>
+  <ng-container *ngIf="article$ | async as article; else loading">
+    <p>
+      <us-article-detail [article]="article"></us-article-detail>
+    </p>
+
+    <p>
+      <button mat-mini-fab color="primary" aria-label="Edit"  routerLink="edit">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </p>
+  </ng-container>
+
+  <ng-template #loading>
+    <div>
+      <div>Loading...</div>
+    </div>
+  </ng-template>
+
+  <p>
+    <button mat-raised-button routerLink="..">Back to overview</button>
+  </p>
+</div>

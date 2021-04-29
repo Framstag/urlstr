@@ -1,0 +1,13 @@
+<us-article-search (searchTerm)="onSearchChange($event)"></us-article-search>
+
+<ng-container *ngIf="articles$ | async as articles; else loading">
+  <us-article-list [articles]="articles">
+  </us-article-list>
+</ng-container>
+
+<ng-template #loading>
+  <div>
+    <div>Loading...</div>
+  </div>
+</ng-template>
+
