@@ -46,5 +46,5 @@ jobs:
         run:  npm run build:ci
         working-directory: urlstr-frontend-angular
       - name: Lint Angular app
-        run:  ng run lint:ci
+        run:  npm run lint:ci
         working-directory: urlstr-frontend-angular
