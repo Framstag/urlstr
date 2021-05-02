@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  build:
+  build_frontend:
     name: Quarkus Backend ubuntu-latest+JDK15+mvn
     runs-on: ubuntu-latest
     steps:
@@ -28,7 +28,8 @@ jobs:
       - name: Build with maven
         run:  mvn --batch-mode --update-snapshots verify
         working-directory: urlstr-backend
-  build:
+        
+  build_backend:
     name: Angular Frontend ubuntu-latest+node14
     runs-on: ubuntu-latest
     steps:
