@@ -1,4 +1,4 @@
-name: Ubuntu Latest using JDK 15 and Maven
+name: Ubuntu Latest using JDK 15, Maven, Node 14
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: ubuntu-latest+JDK15+mvn
+    name: Quarkus Backend ubuntu-latest+JDK15+mvn
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,4 +28,19 @@ jobs:
       - name: Build with maven
         run:  mvn --batch-mode --update-snapshots verify
         working-directory: urlstr-backend
-
+  build:
+    name: Angular Frontend ubuntu-latest+node14
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2        
+      - name: Setup Node 14
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Build Angular app
+        run:  ng build
+        working-directory: urlstr-frontend-angular
+      - name: Lint Angular app
+        run:  ng lint
+        working-directory: urlstr-frontend-angular
