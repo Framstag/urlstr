@@ -3,10 +3,10 @@ name: Ubuntu Latest using JDK 15, Maven, Node 14
 on:
   pull_request:
     branches:
-      - main
+      - master
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
