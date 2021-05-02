@@ -6,11 +6,9 @@ import {Tag} from '../shared/tag';
   templateUrl: './tag-list.component.html',
   styleUrls: ['./tag-list.component.css']
 })
-export class TagListComponent implements OnInit {
+export class TagListComponent {
   @Input()
   tags: Tag[] = [];
 
   constructor() { }
-
-  ngOnInit(): void {}
 }

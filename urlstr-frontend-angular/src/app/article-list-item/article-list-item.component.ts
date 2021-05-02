@@ -8,13 +8,10 @@ import {Router} from '@angular/router';
   templateUrl: './article-list-item.component.html',
   styleUrls: ['./article-list-item.component.css']
 })
-export class ArticleListItemComponent implements OnInit {
+export class ArticleListItemComponent {
   @Input() article!: Article;
 
   constructor(private router: Router) {}
-
-  ngOnInit(): void {
-  }
 
   onClick(article: Article): void {
     // TODO: Move to routerLink in HTML

@@ -8,13 +8,10 @@ import {Router} from '@angular/router';
   templateUrl: './article-detail.component.html',
   styleUrls: ['./article-detail.component.css']
 })
-export class ArticleDetailComponent implements OnInit {
+export class ArticleDetailComponent {
 
   @Input()
   article: Article | null = null;
 
   constructor(private router: Router) { }
-
-  ngOnInit(): void {
-  }
 }
